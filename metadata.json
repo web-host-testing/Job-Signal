@@ -1,0 +1,6 @@
+{
+  "name": "Job Radar",
+  "description": "An MVP mobile-first app helping job seekers quickly filter and analyze warehouse and kitchen jobs, featuring job scoring and an AI CV prompt pack generator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
