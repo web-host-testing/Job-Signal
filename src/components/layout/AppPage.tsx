@@ -10,6 +10,11 @@ interface AppPageProps {
   width?: AppPageWidth;
   withBottomNavSpace?: boolean;
 }
+interface PageSectionProps {
+  children: ReactNode;
+  as?: 'main' | 'section' | 'div';
+  compactTop?: boolean;
+}
 
 interface PageHeaderProps {
   title: string;
@@ -95,6 +100,21 @@ export function PageHeader({
         </Group>
         {bottomSection}
       </Stack>
+    </Box>
+  );
+}
+
+export function PageSection({ children, as = 'main', compactTop = false }: PageSectionProps) {
+  return (
+    <Box
+      component={as}
+      flex={1}
+      px={{ base: mobileContentInset, xl: 'lg' }}
+      pt={compactTop ? { base: 'sm', xl: 'sm' } : { base: 'md', xl: 'lg' }}
+      pb={{ base: 'md', xl: 'lg' }}
+      style={{ overflow: 'hidden' }}
+    >
+      {children}
     </Box>
   );
 }

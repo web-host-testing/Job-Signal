@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { usePreferencesStore, ResumeProfile } from '../store/usePreferencesStore';
 import { MapPin, Clock, Award, FileText, Settings2, ShieldCheck } from 'lucide-react';
-import { Title, Text, TextInput, NumberInput, Switch, Box, Flex, Paper, Accordion, Select, Textarea, Button, Badge, Group, SimpleGrid } from '@mantine/core';
-import { AppPage, PageHeader } from '../components/layout/AppPage';
-import { mobileContentInset, mobileSurfacePadding } from '../layout';
+import { Title, Text, TextInput, NumberInput, Switch, Box, Flex, Accordion, Select, Textarea, Button, Badge, Group, SimpleGrid } from '@mantine/core';
+import { AppPage, PageHeader, PageSection } from '../components/layout/AppPage';
+import { AppCard } from '../components/ui/AppCard';
+import { SectionHeader } from '../components/ui/SectionHeader';
+import { mobileSurfacePadding } from '../layout';
 
 function ResumeProfileEditor({ 
   profile, 
@@ -195,13 +197,10 @@ export function Preferences() {
         }
       />
 
-	      <Box component="main" px={{ base: mobileContentInset, xl: 'lg' }} py={{ base: 'md', xl: 'lg' }} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+	      <PageSection>
 	        <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="md" verticalSpacing="md">
-	          <Paper p={{ base: mobileSurfacePadding, xl: 'md' }}>
-	             <Group mb="md" gap="sm">
-	               <MapPin size={20} color="var(--mantine-color-ink-8)" />
-               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: '-0.02em' }}>Commute & Hours</Title>
-             </Group>
+	          <AppCard p={{ base: mobileSurfacePadding, xl: 'md' }}>
+              <SectionHeader icon={<MapPin size={20} color="var(--mantine-color-ink-8)" />} title="Commute & Hours" />
              <Box style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                <TextInput 
                  label="Home Address / Intersection"
@@ -225,13 +224,10 @@ export function Preferences() {
                  />
                </Group>
              </Box>
-          </Paper>
+          </AppCard>
 
-	          <Paper p={{ base: mobileSurfacePadding, xl: 'md' }}>
-	             <Group mb="md" gap="sm">
-	               <Clock size={20} color="var(--mantine-color-ink-8)" />
-               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: '-0.02em' }}>Availability</Title>
-	             </Group>
+	          <AppCard p={{ base: mobileSurfacePadding, xl: 'md' }}>
+              <SectionHeader icon={<Clock size={20} color="var(--mantine-color-ink-8)" />} title="Availability" />
 	             <Group mt="xs" gap="md">
                {Object.entries({
                  weekdays: 'Weekdays',
@@ -250,13 +246,10 @@ export function Preferences() {
                  />
                ))}
              </Group>
-          </Paper>
+          </AppCard>
 
-	          <Paper p={{ base: mobileSurfacePadding, xl: 'md' }}>
-	             <Group mb="md" gap="sm">
-	               <Award size={20} color="var(--mantine-color-ink-8)" />
-               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: '-0.02em' }}>Certifications</Title>
-             </Group>
+	          <AppCard p={{ base: mobileSurfacePadding, xl: 'md' }}>
+              <SectionHeader icon={<Award size={20} color="var(--mantine-color-ink-8)" />} title="Certifications" />
              <Box style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                <Switch 
                  label="Food Safety Certified (e.g. FoodHandler)"
@@ -273,13 +266,10 @@ export function Preferences() {
                  size="md"
                />
              </Box>
-          </Paper>
+          </AppCard>
 
-	          <Paper p={{ base: mobileSurfacePadding, xl: 'md' }}>
-	             <Group mb="md" gap="sm">
-	               <ShieldCheck size={20} color="var(--mantine-color-ink-8)" />
-               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: '-0.02em' }}>Work Eligibility</Title>
-             </Group>
+	          <AppCard p={{ base: mobileSurfacePadding, xl: 'md' }}>
+              <SectionHeader icon={<ShieldCheck size={20} color="var(--mantine-color-ink-8)" />} title="Work Eligibility" />
              <Box style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                <Select
                  label="Current work authorization"
@@ -298,13 +288,10 @@ export function Preferences() {
                  Used to flag jobs that require unrestricted work authorization or exclude sponsorship.
                </Text>
              </Box>
-          </Paper>
+          </AppCard>
 
-	          <Paper p={{ base: mobileSurfacePadding, xl: 'md' }}>
-	             <Group mb="md" gap="sm">
-	               <Settings2 size={20} color="var(--mantine-color-ink-8)" />
-               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: '-0.02em' }}>Job Types</Title>
-	             </Group>
+	          <AppCard p={{ base: mobileSurfacePadding, xl: 'md' }}>
+              <SectionHeader icon={<Settings2 size={20} color="var(--mantine-color-ink-8)" />} title="Job Types" />
 	             <Group gap="md">
                <Switch 
                  label="Kitchen"
@@ -321,15 +308,16 @@ export function Preferences() {
                  color="lime"
                />
              </Group>
-          </Paper>
+          </AppCard>
         </SimpleGrid>
 
-	        <Paper p={{ base: mobileSurfacePadding, xl: 'md' }}>
-	             <Group mb="xs" gap="sm">
-	               <FileText size={20} color="var(--mantine-color-ink-8)" />
-               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: '-0.02em' }}>Resume Library</Title>
-	             </Group>
-	             <Text size="sm" c="ink.6" mb="lg">Manage specific CVs and notes for different job types.</Text>
+	        <AppCard p={{ base: mobileSurfacePadding, xl: 'md' }}>
+            <SectionHeader
+              icon={<FileText size={20} color="var(--mantine-color-ink-8)" />}
+              title="Resume Library"
+              description="Manage specific CVs and notes for different job types."
+              marginBottom="lg"
+            />
 	             
 	             <Accordion variant="separated" radius="lg">
                {localPrefs.resumeProfiles?.map(profile => (
@@ -356,8 +344,8 @@ export function Preferences() {
                  </Accordion.Item>
                ))}
              </Accordion>
-        </Paper>
-      </Box>
+        </AppCard>
+      </PageSection>
     </AppPage>
   );
 }

@@ -6,6 +6,7 @@ interface JobMetaRowProps {
   hours: string;
   transitMinutes: number;
   compact?: boolean;
+  muted?: boolean;
 }
 
 export function JobMetaRow({
@@ -13,6 +14,7 @@ export function JobMetaRow({
   hours,
   transitMinutes,
   compact = false,
+  muted = false,
 }: JobMetaRowProps) {
   const normalizeHours = (rawHours: string) => {
     const condensed = rawHours
@@ -59,12 +61,18 @@ export function JobMetaRow({
           >
             <Icon
               size={compact ? 10 : 12}
-              color={fact.emphasized ? 'var(--mantine-color-ink-7)' : 'var(--mantine-color-sage-6)'}
+              color={
+                muted
+                  ? 'var(--mantine-color-sage-6)'
+                  : fact.emphasized
+                    ? 'var(--mantine-color-ink-7)'
+                    : 'var(--mantine-color-sage-6)'
+              }
             />
             <Text
               size={compact ? '0.75rem' : '0.8125rem'}
-              fw={fact.emphasized ? 650 : 600}
-              c={fact.emphasized ? 'ink.8' : 'ink.6'}
+              fw={fact.emphasized && !muted ? 650 : 600}
+              c={muted ? 'ink.6' : fact.emphasized ? 'ink.8' : 'ink.6'}
               style={{ letterSpacing: '-0.01em', lineHeight: 1.15 }}
             >
               {fact.label}

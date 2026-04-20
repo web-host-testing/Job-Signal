@@ -6,6 +6,7 @@ import { useJobStore } from '../store/useJobStore';
 import { showToast } from '../store/useToastStore';
 import { useDesktop } from '../lib/useDesktop';
 import { Box, Flex, Text, ActionIcon, Group, Tooltip } from '@mantine/core';
+import { AppCard } from './ui/AppCard';
 import { JobMetaRow } from './ui/JobMetaRow';
 import { SignalBadge } from './ui/SignalBadge';
 import { mobileSurfacePadding } from '../layout';
@@ -86,27 +87,22 @@ export function JobCard({ job, status, variant = 'feed' }: JobCardProps) {
       component={Link}
       to={`/jobs/${job.id}`}
       onClick={handleClick}
-      p={{ base: mobileSurfacePadding, xl: 'md' }}
-      mb="sm"
-      style={() => ({
+      style={{
         display: 'block',
-        backgroundColor: 'var(--mantine-color-surface-0)',
-        border: isSelected 
-          ? '1px solid var(--mantine-color-ink-3)' 
-          : '1px solid var(--mantine-color-sage-2)',
-        borderRadius: 'var(--app-radius-lg)',
         cursor: 'pointer',
         textDecoration: 'none',
         position: 'relative',
-        boxShadow: isSelected 
-          ? '0 0 0 1px rgba(59, 63, 60, 0.08), 0 8px 22px rgba(26, 28, 26, 0.08)'
-          : 'var(--app-shadow-sm)',
-        transition: 'all 200ms ease',
-        '&:hover': {
-          borderColor: isSelected ? 'var(--mantine-color-ink-4)' : 'var(--mantine-color-sage-4)',
-        }
-      })}
+      }}
     >
+      <AppCard
+        p={{ base: mobileSurfacePadding, xl: 'md' }}
+        mb="sm"
+        selected={isSelected}
+        interactive
+        style={{
+          transition: 'border-color 160ms ease, box-shadow 160ms ease',
+        }}
+      >
       <Box mt={{ base: -mobileSurfacePadding, xl: -16 }} mb="sm">
         <SignalBadge
           label={recommendation.tier}
@@ -173,6 +169,7 @@ export function JobCard({ job, status, variant = 'feed' }: JobCardProps) {
           </Group>
         </Flex>
       ) : null}
+      </AppCard>
     </Box>
   );
 }
