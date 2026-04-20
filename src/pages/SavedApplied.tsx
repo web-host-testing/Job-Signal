@@ -3,11 +3,10 @@ import { useJobStore } from '../store/useJobStore';
 import { MOCK_JOBS } from '../data/mockData';
 import { JobCard } from '../components/JobCard';
 import { motion, AnimatePresence } from 'motion/react';
-import { SegmentedControl, Box, Flex, ThemeIcon } from '@mantine/core';
+import { SegmentedControl, Flex, ThemeIcon } from '@mantine/core';
 import { Bookmark } from 'lucide-react';
-import { AppPage, PageHeader } from '../components/layout/AppPage';
+import { AppPage, PageHeader, PageSection } from '../components/layout/AppPage';
 import { EmptyState } from '../components/ui/EmptyState';
-import { mobileContentInset } from '../layout';
 
 export function SavedApplied() {
   const { getStatus } = useJobStore();
@@ -44,13 +43,7 @@ export function SavedApplied() {
         }
       />
 
-	      <Box
-          component="main"
-          flex={1}
-          px={{ base: mobileContentInset, xl: 'lg' }}
-          pt={{ base: 'sm', xl: 'sm' }}
-          style={{ overflow: 'hidden' }}
-        >
+	      <PageSection compactTop>
 	          {displayJobs.length === 0 ? (
 	            <EmptyState
 	              icon={<Bookmark size={24} color="var(--mantine-color-sage-5)" />}
@@ -74,7 +67,7 @@ export function SavedApplied() {
               </AnimatePresence>
             </Flex>
           )}
-      </Box>
+      </PageSection>
     </AppPage>
   );
 }
