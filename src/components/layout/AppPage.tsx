@@ -39,7 +39,7 @@ export function AppPage({
         };
 
   return (
-    <Box bg="sage.0" style={{ flex: 1, minHeight: '100%' }}>
+    <Box bg="sage.0" style={{ flex: 1, minHeight: '100%', color: 'var(--app-text-body)' }}>
       <Box
         w="100%"
         pb={withBottomNavSpace ? { base: 88, xl: 0 } : 0}
@@ -74,6 +74,7 @@ export function PageHeader({
         position: 'sticky',
         top: 0,
         zIndex: 40,
+        borderBottom: 'var(--app-border-subtle)',
       }}
     >
       <Stack gap={bottomSection ? 'sm' : 0}>
@@ -81,7 +82,7 @@ export function PageHeader({
           <Stack gap={4} className={cn(hideTitleOnDesktop && 'xl:hidden')}>
             <Group gap="xs" wrap="nowrap">
               {icon}
-              <Title order={1} size="h4" c="ink.9" style={{ letterSpacing: '-0.03em' }}>
+              <Title order={1} size="h4" c="ink.9" style={{ letterSpacing: 'var(--app-title-tracking)' }}>
                 {title}
               </Title>
             </Group>

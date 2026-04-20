@@ -14,11 +14,11 @@ interface SignalBadgeProps {
 
 const toneMap: Record<SignalTone, { color: string; variant: 'light' | 'outline' | 'default' }> =
   {
-    neutral: { color: 'gray', variant: 'outline' },
-    success: { color: 'teal', variant: 'light' },
-    warning: { color: 'yellow', variant: 'light' },
-    danger: { color: 'red', variant: 'light' },
-    'quick-win': { color: 'lime', variant: 'light' },
+    neutral: { color: 'signalNeutral', variant: 'light' },
+    success: { color: 'signalSuccess', variant: 'light' },
+    warning: { color: 'signalWarning', variant: 'light' },
+    danger: { color: 'signalDanger', variant: 'light' },
+    'quick-win': { color: 'signalSuccess', variant: 'light' },
   };
 
 export function SignalBadge({
@@ -44,11 +44,13 @@ export function SignalBadge({
           alignItems: 'center',
         },
         root: {
-          paddingInline: bookmark ? 18 : prominent ? 14 : 10,
+          paddingInline: bookmark ? 16 : prominent ? 12 : 10,
           minHeight: bookmark ? 42 : prominent ? 26 : undefined,
-          fontSize: bookmark ? '1rem' : prominent ? '0.75rem' : undefined,
+          fontSize: bookmark ? '0.95rem' : prominent ? '0.75rem' : undefined,
           fontWeight: prominent || bookmark ? 700 : undefined,
+          letterSpacing: 'var(--app-body-tracking)',
           borderRadius: bookmark ? '0 0 14px 14px' : undefined,
+          border: bookmark ? 'var(--app-border-strong)' : undefined,
         },
       }}
     >

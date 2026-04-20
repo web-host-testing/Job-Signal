@@ -90,10 +90,10 @@ export function JobCard({ job, status, variant = 'feed' }: JobCardProps) {
       mb="sm"
       style={() => ({
         display: 'block',
-        backgroundColor: 'var(--mantine-color-surface-0)',
+        backgroundColor: 'var(--app-surface-base)',
         border: isSelected 
           ? '1px solid var(--mantine-color-ink-3)' 
-          : '1px solid var(--mantine-color-sage-2)',
+          : 'var(--app-border-subtle)',
         borderRadius: 'var(--app-radius-lg)',
         cursor: 'pointer',
         textDecoration: 'none',
@@ -125,11 +125,11 @@ export function JobCard({ job, status, variant = 'feed' }: JobCardProps) {
             c="ink.9"
             size="md"
             mb={4}
-            style={{ lineHeight: 1.22, letterSpacing: '-0.02em', fontSize: '1.08rem' }}
+            style={{ lineHeight: 1.22, letterSpacing: 'var(--app-title-tracking)', fontSize: '1.06rem' }}
           >
             {job.title}
           </Text>
-          <Text size="sm" c="ink.8" fw={650} mb={4} style={{ letterSpacing: '-0.01em' }}>
+          <Text size="sm" c="ink.8" fw={650} mb={4} style={{ letterSpacing: 'var(--app-body-tracking)' }}>
             {job.employer}
           </Text>
           <Text size="sm" c="ink.5" mb={10}>

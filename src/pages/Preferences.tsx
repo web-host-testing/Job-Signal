@@ -34,7 +34,7 @@ function ResumeProfileEditor({
     <Box>
       {!isEditing ? (
 	         <Box pt="sm">
-	            <Box p="md" bg="surface.1" style={{ border: '1px solid var(--mantine-color-sage-2)', borderRadius: 'var(--mantine-radius-md)', fontFamily: 'monospace', fontSize: '0.8rem', whiteSpace: 'pre-wrap', maxHeight: '160px', overflowY: 'auto' }}>
+	            <Box p="md" bg="surface.1" style={{ border: 'var(--app-border-subtle)', borderRadius: 'var(--mantine-radius-md)', fontFamily: 'monospace', fontSize: '0.8rem', whiteSpace: 'pre-wrap', maxHeight: '160px', overflowY: 'auto' }}>
 	              {profile.resumeText || <Text fs="italic" c="sage.6" size="xs">No resume text provided.</Text>}
 	            </Box>
             {profile.notes && (
@@ -48,7 +48,7 @@ function ResumeProfileEditor({
 	            </Flex>
          </Box>
       ) : (
-         <Box pt="md" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+	         <Box pt="md" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--app-space-md)' }}>
            <TextInput 
              label="Profile Name"
              size="md"
@@ -74,7 +74,7 @@ function ResumeProfileEditor({
                checked={draft.isDefaultForLane} 
                onChange={e => setDraft({...draft, isDefaultForLane: e.currentTarget.checked})} 
                mb={8}
-               color="lime"
+               color="signalSuccess"
              />
            </Group>
 
@@ -187,7 +187,7 @@ export function Preferences() {
               </Badge>
             )}
             {saveStatus === 'saved' && (
-              <Badge color="lime" variant="light" size="sm" c="ink.9">
+              <Badge color="signalSuccess" variant="light" size="sm" c="ink.9">
                 Saved
               </Badge>
             )}
@@ -195,14 +195,14 @@ export function Preferences() {
         }
       />
 
-	      <Box component="main" px={{ base: mobileContentInset, xl: 'lg' }} py={{ base: 'md', xl: 'lg' }} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+	      <Box component="main" px={{ base: mobileContentInset, xl: 'lg' }} py={{ base: 'md', xl: 'lg' }} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--app-space-lg)' }}>
 	        <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="md" verticalSpacing="md">
 	          <Paper p={{ base: mobileSurfacePadding, xl: 'md' }}>
 	             <Group mb="md" gap="sm">
 	               <MapPin size={20} color="var(--mantine-color-ink-8)" />
                <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: '-0.02em' }}>Commute & Hours</Title>
              </Group>
-             <Box style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+             <Box style={{ display: 'flex', flexDirection: 'column', gap: 'var(--app-space-lg)' }}>
                <TextInput 
                  label="Home Address / Intersection"
                  placeholder="e.g. Queen & Spadina"
@@ -246,7 +246,7 @@ export function Preferences() {
                    checked={(localPrefs.availability as any)[key]}
                    onChange={e => updateNested('availability', key, e.currentTarget.checked)}
                    size="md"
-                   color="lime"
+                   color="signalSuccess"
                  />
                ))}
              </Group>
@@ -257,13 +257,13 @@ export function Preferences() {
 	               <Award size={20} color="var(--mantine-color-ink-8)" />
                <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: '-0.02em' }}>Certifications</Title>
              </Group>
-             <Box style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+             <Box style={{ display: 'flex', flexDirection: 'column', gap: 'var(--app-space-lg)' }}>
                <Switch 
                  label="Food Safety Certified (e.g. FoodHandler)"
                  checked={localPrefs.certifications.foodSafety}
                  onChange={e => updateNested('certifications', 'foodSafety', e.currentTarget.checked)}
                  size="md"
-                 color="lime"
+                 color="signalSuccess"
                />
                <TextInput 
                  label="Warehouse Certifications"
@@ -280,7 +280,7 @@ export function Preferences() {
 	               <ShieldCheck size={20} color="var(--mantine-color-ink-8)" />
                <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: '-0.02em' }}>Work Eligibility</Title>
              </Group>
-             <Box style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+             <Box style={{ display: 'flex', flexDirection: 'column', gap: 'var(--app-space-sm)' }}>
                <Select
                  label="Current work authorization"
                  size="md"
@@ -311,14 +311,14 @@ export function Preferences() {
                  checked={localPrefs.enabledLanes.kitchen}
                  onChange={e => updateNested('enabledLanes', 'kitchen', e.currentTarget.checked)}
                  size="md"
-                 color="lime"
+                 color="signalSuccess"
                />
                <Switch 
                  label="Warehouse"
                  checked={localPrefs.enabledLanes.warehouse}
                  onChange={e => updateNested('enabledLanes', 'warehouse', e.currentTarget.checked)}
                  size="md"
-                 color="lime"
+                 color="signalSuccess"
                />
              </Group>
           </Paper>
