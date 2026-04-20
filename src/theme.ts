@@ -129,7 +129,7 @@ export const appTheme = createTheme({
       },
       styles: {
         root: {
-          letterSpacing: '-0.01em',
+          letterSpacing: 'var(--app-body-tracking)',
         },
       },
     },

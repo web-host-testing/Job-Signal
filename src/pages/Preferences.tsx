@@ -200,7 +200,7 @@ export function Preferences() {
 	          <Paper p={{ base: mobileSurfacePadding, xl: 'md' }}>
 	             <Group mb="md" gap="sm">
 	               <MapPin size={20} color="var(--mantine-color-ink-8)" />
-               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: '-0.02em' }}>Commute & Hours</Title>
+               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: 'var(--app-title-tracking)' }}>Commute & Hours</Title>
              </Group>
              <Box style={{ display: 'flex', flexDirection: 'column', gap: 'var(--app-space-lg)' }}>
                <TextInput 
@@ -230,7 +230,7 @@ export function Preferences() {
 	          <Paper p={{ base: mobileSurfacePadding, xl: 'md' }}>
 	             <Group mb="md" gap="sm">
 	               <Clock size={20} color="var(--mantine-color-ink-8)" />
-               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: '-0.02em' }}>Availability</Title>
+               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: 'var(--app-title-tracking)' }}>Availability</Title>
 	             </Group>
 	             <Group mt="xs" gap="md">
                {Object.entries({
@@ -255,7 +255,7 @@ export function Preferences() {
 	          <Paper p={{ base: mobileSurfacePadding, xl: 'md' }}>
 	             <Group mb="md" gap="sm">
 	               <Award size={20} color="var(--mantine-color-ink-8)" />
-               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: '-0.02em' }}>Certifications</Title>
+               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: 'var(--app-title-tracking)' }}>Certifications</Title>
              </Group>
              <Box style={{ display: 'flex', flexDirection: 'column', gap: 'var(--app-space-lg)' }}>
                <Switch 
@@ -278,7 +278,7 @@ export function Preferences() {
 	          <Paper p={{ base: mobileSurfacePadding, xl: 'md' }}>
 	             <Group mb="md" gap="sm">
 	               <ShieldCheck size={20} color="var(--mantine-color-ink-8)" />
-               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: '-0.02em' }}>Work Eligibility</Title>
+               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: 'var(--app-title-tracking)' }}>Work Eligibility</Title>
              </Group>
              <Box style={{ display: 'flex', flexDirection: 'column', gap: 'var(--app-space-sm)' }}>
                <Select
@@ -303,7 +303,7 @@ export function Preferences() {
 	          <Paper p={{ base: mobileSurfacePadding, xl: 'md' }}>
 	             <Group mb="md" gap="sm">
 	               <Settings2 size={20} color="var(--mantine-color-ink-8)" />
-               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: '-0.02em' }}>Job Types</Title>
+               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: 'var(--app-title-tracking)' }}>Job Types</Title>
 	             </Group>
 	             <Group gap="md">
                <Switch 
@@ -327,7 +327,7 @@ export function Preferences() {
 	        <Paper p={{ base: mobileSurfacePadding, xl: 'md' }}>
 	             <Group mb="xs" gap="sm">
 	               <FileText size={20} color="var(--mantine-color-ink-8)" />
-               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: '-0.02em' }}>Resume Library</Title>
+               <Title order={2} size="1.05rem" c="ink.9" style={{ letterSpacing: 'var(--app-title-tracking)' }}>Resume Library</Title>
 	             </Group>
 	             <Text size="sm" c="ink.6" mb="lg">Manage specific CVs and notes for different job types.</Text>
 	             
@@ -338,7 +338,7 @@ export function Preferences() {
                       <Group justify="space-between" align="center" wrap="nowrap">
                         <Box>
                           <Group gap="sm" mb={4}>
-	                            <Text size="sm" fw={700} c="ink.9" style={{ letterSpacing: '-0.01em' }}>{profile.title}</Text>
+	                            <Text size="sm" fw={700} c="ink.9" style={{ letterSpacing: 'var(--app-body-tracking)' }}>{profile.title}</Text>
                             {profile.isDefaultForLane && (
                               <Badge color="sage.2" c="ink.8" variant="filled" size="sm" style={{ border: '1px dashed var(--mantine-color-sage-4)' }}>Default {profile.targetLane}</Badge>
                             )}

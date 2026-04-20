@@ -591,7 +591,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                     fw={700}
                     c="ink.8"
                     mb={8}
-                    style={{ letterSpacing: '-0.01em', lineHeight: 1.2 }}
+                    style={{ letterSpacing: 'var(--app-body-tracking)', lineHeight: 1.2 }}
                   >
                     {payHeroValue}
                   </Text>
@@ -601,11 +601,11 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                     size="h1"
                     c="ink.9"
                     mb={6}
-                    style={{ lineHeight: 1.06, letterSpacing: '-0.05em', fontSize: 'clamp(1.95rem, 3.9vw, 2.6rem)' }}
+                    style={{ lineHeight: 1.06, letterSpacing: 'var(--app-title-tracking)', fontSize: 'clamp(1.95rem, 3.9vw, 2.6rem)' }}
                   >
                     {job.title}
                   </Title>
-                  <Text size="lg" fw={700} c="ink.8" mb={6} style={{ letterSpacing: '-0.02em' }}>
+                  <Text size="lg" fw={700} c="ink.8" mb={6} style={{ letterSpacing: 'var(--app-title-tracking)' }}>
                     {job.employer}
                   </Text>
                   <Group gap={8} mb={14} wrap="wrap">
