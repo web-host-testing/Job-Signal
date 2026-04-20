@@ -24,6 +24,54 @@ export const appTheme = createTheme({
     xl: '2rem',
   },
   colors: {
+    signalNeutral: [
+      '#F6F7F4',
+      '#EEF0EB',
+      '#E3E7E0',
+      '#D8DDD4',
+      '#C9CFC4',
+      '#B6BEB0',
+      '#9EA897',
+      '#848F7C',
+      '#687360',
+      '#4F564A',
+    ],
+    signalSuccess: [
+      '#F2F9F5',
+      '#E6F2EA',
+      '#D4E8DC',
+      '#C2DDCF',
+      '#AAD0BA',
+      '#8DBEA0',
+      '#6FA987',
+      '#568B6C',
+      '#3E6E52',
+      '#2C5A42',
+    ],
+    signalWarning: [
+      '#FFFAEF',
+      '#FFF4DE',
+      '#FCE8BE',
+      '#F2DAA0',
+      '#E8CB82',
+      '#DDBA61',
+      '#C79F3F',
+      '#A78329',
+      '#876817',
+      '#6B500C',
+    ],
+    signalDanger: [
+      '#FFF4F4',
+      '#FFE7E7',
+      '#FCD2D2',
+      '#F2BABA',
+      '#E59E9E',
+      '#D67F7F',
+      '#BE6161',
+      '#9E4747',
+      '#822F2F',
+      '#692020',
+    ],
     sage: [
       '#F4F5F2',
       '#ECEEE8',
@@ -68,8 +116,8 @@ export const appTheme = createTheme({
       },
       styles: {
         root: {
-          backgroundColor: 'var(--mantine-color-surface-0)',
-          border: '1px solid var(--mantine-color-sage-2)',
+          backgroundColor: 'var(--app-surface-base)',
+          border: 'var(--app-border-subtle)',
           boxShadow: 'var(--app-shadow-sm)',
         },
       },
@@ -100,14 +148,15 @@ export const appTheme = createTheme({
         root: {
           textTransform: 'none',
           letterSpacing: 0,
+          border: 'var(--app-border-subtle)',
         },
       },
     },
     SegmentedControl: {
       styles: {
         root: {
-          backgroundColor: 'var(--mantine-color-surface-0)',
-          border: '1px solid var(--mantine-color-sage-2)',
+          backgroundColor: 'var(--app-surface-base)',
+          border: 'var(--app-border-subtle)',
           padding: 4,
         },
         indicator: {
@@ -123,8 +172,8 @@ export const appTheme = createTheme({
     Input: {
       styles: {
         input: {
-          backgroundColor: 'var(--mantine-color-surface-1)',
-          border: '1px solid var(--mantine-color-sage-2)',
+          backgroundColor: 'var(--app-surface-muted)',
+          border: 'var(--app-border-subtle)',
         },
       },
     },
@@ -154,8 +203,8 @@ export const appTheme = createTheme({
     Accordion: {
       styles: {
         item: {
-          border: '1px solid var(--mantine-color-sage-2)',
-          backgroundColor: 'var(--mantine-color-surface-0)',
+          border: 'var(--app-border-subtle)',
+          backgroundColor: 'var(--app-surface-base)',
         },
         control: {
           paddingBlock: '0.875rem',

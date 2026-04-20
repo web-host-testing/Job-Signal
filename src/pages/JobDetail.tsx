@@ -430,9 +430,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
       label: 'Hours',
       value: simplifiedHoursValue,
       icon: Clock,
-      background: 'linear-gradient(135deg, #EEF6FF 0%, #F7FBFF 100%)',
-      iconBg: '#BEDBFF',
-      iconColor: '#0B4A7A',
+      tone: 'neutral',
       description: analysis.hoursRealityCheck,
     },
     {
@@ -440,9 +438,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
       label: 'Transit',
       value: `${job.transitTimeMins} min`,
       icon: Bus,
-      background: 'linear-gradient(135deg, #ECF8F4 0%, #F6FCF9 100%)',
-      iconBg: '#A8DBC8',
-      iconColor: '#0F5F4B',
+      tone: 'success',
       description: job.routeSummary,
     },
     {
@@ -450,30 +446,14 @@ Do not add any certifications, degrees, or specific software knowledge unless it
       label: 'Fit',
       value: fitCardValue,
       icon: Target,
-      background:
+      tone:
         fitTone === 'success'
-          ? 'linear-gradient(135deg, #F2F9E6 0%, #F9FDEE 100%)'
+          ? 'success'
           : fitTone === 'warning'
-            ? 'linear-gradient(135deg, #FFF6E1 0%, #FFFBEF 100%)'
+            ? 'warning'
             : fitTone === 'danger'
-              ? 'linear-gradient(135deg, #FFECEC 0%, #FFF5F5 100%)'
-              : 'linear-gradient(135deg, #EEF1EC 0%, #F8F9F7 100%)',
-      iconBg:
-        fitTone === 'success'
-          ? '#CFE59A'
-          : fitTone === 'warning'
-            ? '#F2D494'
-            : fitTone === 'danger'
-              ? '#F3B7B7'
-              : '#C8CEC2',
-      iconColor:
-        fitTone === 'success'
-          ? '#405A12'
-          : fitTone === 'warning'
-            ? '#6A4700'
-            : fitTone === 'danger'
-              ? '#7A1D1D'
-              : '#495045',
+              ? 'danger'
+              : 'neutral',
       description: fitSummary,
     },
   ] as const;
@@ -731,9 +711,10 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                       key={fact.label}
                       p={{ base: 'sm', sm: 14, lg: 'md' }}
                       style={{
-                        background: fact.background,
+                        backgroundColor: `var(--app-signal-${fact.tone}-bg)`,
+                        border: `1px solid var(--app-signal-${fact.tone}-border)`,
                         borderRadius: 'var(--app-radius-lg)',
-                        boxShadow: '0 4px 12px rgba(26, 28, 26, 0.03)',
+                        boxShadow: 'var(--app-shadow-sm)',
                         display: 'flex',
                         flexDirection: 'column',
                       }}
@@ -751,8 +732,8 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                             radius="lg"
                             styles={{
                               root: {
-                                backgroundColor: fact.iconBg,
-                                color: fact.iconColor,
+                                backgroundColor: `var(--app-signal-${fact.tone}-border)`,
+                                color: `var(--app-signal-${fact.tone}-text)`,
                                 boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.35)',
                                 flexShrink: 0,
                               },
@@ -765,7 +746,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                             fw={700}
                             c="sage.8"
                             tt="uppercase"
-                            style={{ letterSpacing: '0.05em', lineHeight: 1.1 }}
+                            style={{ letterSpacing: '0.04em', lineHeight: 1.1 }}
                           >
                             {fact.label}
                           </Text>
@@ -776,7 +757,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                         c="ink.9"
                         mb={{ base: 8, sm: 10, lg: 'sm' }}
                         fz="clamp(1.1rem, 1.7vw, 1.5rem)"
-                        style={{ lineHeight: 1.12, letterSpacing: '-0.03em' }}
+                        style={{ lineHeight: 1.12, letterSpacing: 'var(--app-title-tracking)' }}
                       >
                         {fact.value}
                       </Text>

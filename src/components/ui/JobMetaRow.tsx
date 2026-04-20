@@ -50,8 +50,8 @@ export function JobMetaRow({
               display: 'inline-flex',
               alignItems: 'center',
               gap: compact ? '0.25rem' : '0.3125rem',
-              backgroundColor: 'var(--mantine-color-surface-1)',
-              border: '1px solid var(--mantine-color-sage-2)',
+              backgroundColor: 'var(--app-surface-muted)',
+              border: 'var(--app-border-subtle)',
               borderRadius: 'var(--mantine-radius-md)',
               lineHeight: 1,
               whiteSpace: 'nowrap',
@@ -65,7 +65,7 @@ export function JobMetaRow({
               size={compact ? '0.75rem' : '0.8125rem'}
               fw={fact.emphasized ? 650 : 600}
               c={fact.emphasized ? 'ink.8' : 'ink.6'}
-              style={{ letterSpacing: '-0.01em', lineHeight: 1.15 }}
+              style={{ letterSpacing: 'var(--app-body-tracking)', lineHeight: 1.15 }}
             >
               {fact.label}
             </Text>
