@@ -23,7 +23,7 @@ export function SavedApplied() {
       <PageHeader
         title="My Jobs"
         icon={
-          <ThemeIcon size="md" radius="xl" color="ink.9" className="xl:hidden">
+          <ThemeIcon size="md" radius="xl" color="ink.9" hiddenFrom="xl">
             <Bookmark size={16} />
           </ThemeIcon>
         }

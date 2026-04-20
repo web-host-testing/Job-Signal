@@ -41,16 +41,39 @@ function GlobalLayout() {
     <Box
       bg="sage.0"
       pos="relative"
-      style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column' }}
-      className="xl:h-screen xl:overflow-hidden xl:pt-16"
+      style={{
+        minHeight: '100dvh',
+        display: 'flex',
+        flexDirection: 'column',
+        height: isDesktop ? '100dvh' : undefined,
+        overflow: isDesktop ? 'hidden' : undefined,
+        paddingTop: isDesktop ? '4rem' : undefined,
+      }}
     >
       <DesktopHeader />
-      
+
       {isPrefs ? (
-        <div className="relative flex w-full flex-1 justify-center bg-transparent xl:mx-auto xl:max-w-[var(--app-shell-max-width)] xl:overflow-hidden">
+        <Box
+          style={{
+            position: 'relative',
+            display: 'flex',
+            width: '100%',
+            flex: 1,
+            justifyContent: 'center',
+            overflow: isDesktop ? 'hidden' : undefined,
+            maxWidth: isDesktop ? 'var(--app-shell-max-width)' : undefined,
+            marginInline: isDesktop ? 'auto' : undefined,
+          }}
+        >
           <Box
-            className="hide-scrollbar h-full w-full xl:overflow-y-auto"
-            style={{ display: 'flex', justifyContent: 'center' }}
+            className="hide-scrollbar"
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              width: '100%',
+              height: '100%',
+              overflowY: isDesktop ? 'auto' : undefined,
+            }}
           >
             <Box w="100%">
               <Routes>
@@ -58,15 +81,27 @@ function GlobalLayout() {
               </Routes>
             </Box>
           </Box>
-        </div>
+        </Box>
       ) : (
-        <div className="relative flex w-full flex-1 xl:mx-auto xl:max-w-[var(--app-shell-max-width)] xl:overflow-hidden">
-          <Box 
-            className="w-full shrink-0 xl:h-full xl:overflow-y-auto"
-            style={{ 
+        <Box
+          style={{
+            position: 'relative',
+            display: 'flex',
+            width: '100%',
+            flex: 1,
+            overflow: isDesktop ? 'hidden' : undefined,
+            maxWidth: isDesktop ? 'var(--app-shell-max-width)' : undefined,
+            marginInline: isDesktop ? 'auto' : undefined,
+          }}
+        >
+          <Box
+            style={{
+              width: isDesktop ? 'var(--app-feed-pane-width)' : '100%',
+              flexShrink: 0,
+              height: isDesktop ? '100%' : undefined,
+              overflowY: isDesktop ? 'auto' : undefined,
               borderRight: isDesktop ? '1px solid var(--mantine-color-sage-2)' : 'none',
               backgroundColor: isDesktop ? 'var(--mantine-color-surface-0)' : 'transparent',
-              width: isDesktop ? 'var(--app-feed-pane-width)' : '100%',
             }}
           >
             <Routes>
@@ -76,35 +111,71 @@ function GlobalLayout() {
             </Routes>
           </Box>
 
-          {/* Right Side: Only visible on Desktop */}
           {isDesktop && (
-            <div className="hidden flex-1 items-start justify-center overflow-hidden p-6 xl:flex" style={{ backgroundColor: 'transparent' }}>
-                 <Box 
-                   className="flex h-full w-full max-w-5xl flex-col overflow-hidden"
-                   style={{
-                     backgroundColor: 'var(--mantine-color-surface-0)',
-                     border: '1px solid var(--mantine-color-sage-2)',
-                     borderRadius: 'var(--app-radius-lg)',
-                     boxShadow: 'var(--app-shadow-md)',
-                   }}
-                 >
-                 {jobId ? (
-                    <JobDetail embeddedId={jobId} />
-                 ) : (
-                    <Center w="100%" h="100%" p="xl" style={{ flexDirection: 'column', backgroundColor: 'var(--mantine-color-surface-0)', gap: '1rem' }}>
-                      <Flex align="center" justify="center" w={64} h={64} style={{ borderRadius: '1rem', backgroundColor: 'var(--mantine-color-surface-0)', border: '1px dashed var(--mantine-color-sage-3)' }}>
-                        <Target size={32} color="var(--mantine-color-sage-4)" />
-                      </Flex>
-                      <Box ta="center" maw={280}>
-                        <Text fw={600} c="ink.9">No Job Selected</Text>
-                        <Text size="sm" c="ink.6">Select a job from the list to analyze its details.</Text>
-                      </Box>
-                    </Center>
-                 )}
-               </Box>
-            </div>
+            <Flex
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+                overflow: 'hidden',
+                padding: '1.5rem',
+                backgroundColor: 'transparent',
+              }}
+            >
+              <Box
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  height: '100%',
+                  maxWidth: '64rem',
+                  overflow: 'hidden',
+                  backgroundColor: 'var(--mantine-color-surface-0)',
+                  border: '1px solid var(--mantine-color-sage-2)',
+                  borderRadius: 'var(--app-radius-lg)',
+                  boxShadow: 'var(--app-shadow-md)',
+                }}
+              >
+                {jobId ? (
+                  <JobDetail embeddedId={jobId} />
+                ) : (
+                  <Center
+                    w="100%"
+                    h="100%"
+                    p="xl"
+                    style={{
+                      flexDirection: 'column',
+                      backgroundColor: 'var(--mantine-color-surface-0)',
+                      gap: '1rem',
+                    }}
+                  >
+                    <Flex
+                      align="center"
+                      justify="center"
+                      w={64}
+                      h={64}
+                      style={{
+                        borderRadius: '1rem',
+                        backgroundColor: 'var(--mantine-color-surface-0)',
+                        border: '1px dashed var(--mantine-color-sage-3)',
+                      }}
+                    >
+                      <Target size={32} color="var(--mantine-color-sage-4)" />
+                    </Flex>
+                    <Box ta="center" maw={280}>
+                      <Text fw={600} c="ink.9">
+                        No Job Selected
+                      </Text>
+                      <Text size="sm" c="ink.6">
+                        Select a job from the list to analyze its details.
+                      </Text>
+                    </Box>
+                  </Center>
+                )}
+              </Box>
+            </Flex>
           )}
-        </div>
+        </Box>
       )}
       <Navigation />
       <Notifications position="bottom-center" />

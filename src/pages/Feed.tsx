@@ -406,7 +406,7 @@ export function Feed() {
       <PageHeader
         title="New Jobs"
         icon={
-          <ThemeIcon size="md" radius="xl" color="ink.9" className="xl:hidden">
+          <ThemeIcon size="md" radius="xl" color="ink.9" hiddenFrom="xl">
             <Target size={16} />
           </ThemeIcon>
         }

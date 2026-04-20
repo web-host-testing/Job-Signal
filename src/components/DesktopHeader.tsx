@@ -11,8 +11,16 @@ export function DesktopHeader() {
     <Box 
       component="header" 
       bg="surface.0" 
-      className="hidden xl:flex w-full h-16 shrink-0 z-50 fixed top-0 left-0 right-0"
-      style={{ borderBottom: '1px solid var(--mantine-color-sage-2)' }}
+      visibleFrom="xl"
+      h={64}
+      style={{
+        borderBottom: '1px solid var(--mantine-color-sage-2)',
+        flexShrink: 0,
+        zIndex: 50,
+        position: 'fixed',
+        insetInline: 0,
+        top: 0,
+      }}
     >
       <Flex w="100%" maw="var(--app-shell-max-width)" mx="auto" px={24} justify="space-between" align="center">
         <Box component={Link} to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
