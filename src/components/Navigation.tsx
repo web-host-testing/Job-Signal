@@ -11,7 +11,19 @@ export function Navigation() {
   }
 
   return (
-    <Box component="nav" bg="surface.0" className="fixed bottom-0 w-full pb-safe z-50 xl:hidden" style={{ borderTop: '1px solid var(--mantine-color-sage-2)' }}>
+    <Box
+      component="nav"
+      bg="surface.0"
+      hiddenFrom="xl"
+      style={{
+        position: 'fixed',
+        bottom: 0,
+        width: '100%',
+        paddingBottom: 'env(safe-area-inset-bottom)',
+        zIndex: 50,
+        borderTop: '1px solid var(--mantine-color-sage-2)',
+      }}
+    >
       <Flex justify="space-around" align="center" h={64} maw={448} mx="auto">
         {primaryNavLinks.map((link) => {
           const Icon = link.icon;

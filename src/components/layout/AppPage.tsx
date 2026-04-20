@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
 import { Box, Group, Stack, Text, Title } from '@mantine/core';
-import { cn } from '../../lib/utils';
 import { mobileContentInset } from '../../layout';
 
 type AppPageWidth = 'pane' | 'wide' | 'full';
@@ -78,7 +77,7 @@ export function PageHeader({
     >
       <Stack gap={bottomSection ? 'sm' : 0}>
         <Group justify="space-between" align="flex-start" wrap="nowrap">
-          <Stack gap={4} className={cn(hideTitleOnDesktop && 'xl:hidden')}>
+          <Stack gap={4} hiddenFrom={hideTitleOnDesktop ? "xl" : undefined}>
             <Group gap="xs" wrap="nowrap">
               {icon}
               <Title order={1} size="h4" c="ink.9" style={{ letterSpacing: '-0.03em' }}>
