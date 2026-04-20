@@ -47,16 +47,13 @@ function GlobalLayout() {
       <DesktopHeader />
       
       {isPrefs ? (
-        <div className="relative flex w-full flex-1 justify-center bg-transparent xl:mx-auto xl:max-w-[var(--app-shell-max-width)] xl:overflow-hidden">
+        <div className="relative flex w-full flex-1 bg-transparent xl:overflow-hidden">
           <Box
             className="hide-scrollbar h-full w-full xl:overflow-y-auto"
-            style={{ display: 'flex', justifyContent: 'center' }}
           >
-            <Box w="100%">
-              <Routes>
-                <Route path="/prefs" element={<Preferences />} />
-              </Routes>
-            </Box>
+            <Routes>
+              <Route path="/prefs" element={<Preferences />} />
+            </Routes>
           </Box>
         </div>
       ) : (
