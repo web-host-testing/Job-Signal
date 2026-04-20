@@ -12,7 +12,6 @@ import {
   CircleX,
   Clock,
   Eye,
-  ExternalLink,
   Heart,
   Info,
   Share2,
@@ -372,6 +371,8 @@ Do not add any certifications, degrees, or specific software knowledge unless it
         : 'Limited employer signals, verify pay and stability before applying';
   const googleSearchUrl = (query: string) =>
     `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+  const getDomainFaviconUrl = (domain: string) =>
+    `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=64`;
   const learnMoreLinks = Array.from(
     new Map(
       [
@@ -382,6 +383,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                 key: 'job-post',
                 label: 'Job post',
                 url: jobPostUrl,
+                faviconUrl: getDomainFaviconUrl(getSourceHost(jobPostUrl) || 'google.com'),
               },
             ]
           : null,
@@ -392,6 +394,9 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                 key: 'company-page',
                 label: 'Company page',
                 url: employerSourceUrl,
+                faviconUrl: getDomainFaviconUrl(
+                  getSourceHost(employerSourceUrl) || 'google.com'
+                ),
               },
             ]
           : [
@@ -400,6 +405,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                 key: 'company-search',
                 label: 'Company page',
                 url: googleSearchUrl(`${job.employer} official site`),
+                faviconUrl: getDomainFaviconUrl('google.com'),
               },
             ],
         [
@@ -408,6 +414,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
             key: 'glassdoor',
             label: 'Glassdoor',
             url: googleSearchUrl(`${job.employer} Glassdoor reviews`),
+            faviconUrl: getDomainFaviconUrl('glassdoor.com'),
           },
         ],
         [
@@ -416,35 +423,26 @@ Do not add any certifications, degrees, or specific software knowledge unless it
             key: 'reddit',
             label: 'Reddit',
             url: googleSearchUrl(`${job.employer} reddit jobs`),
+            faviconUrl: getDomainFaviconUrl('reddit.com'),
           },
         ],
-      ] as Array<[string, { key: string; label: string; url: string }] | null>
+      ] as Array<
+        [
+          string,
+          {
+            key: string;
+            label: string;
+            url: string;
+            faviconUrl: string;
+          },
+        ] | null
+      >
     ).values()
   );
 
   const fitCardValue = fitAssessment.label;
 
   const analysisCards = [
-    {
-      id: 'hours',
-      label: 'Hours',
-      value: simplifiedHoursValue,
-      icon: Clock,
-      background: 'linear-gradient(135deg, #EEF6FF 0%, #F7FBFF 100%)',
-      iconBg: '#BEDBFF',
-      iconColor: '#0B4A7A',
-      description: analysis.hoursRealityCheck,
-    },
-    {
-      id: 'transit',
-      label: 'Transit',
-      value: `${job.transitTimeMins} min`,
-      icon: Bus,
-      background: 'linear-gradient(135deg, #ECF8F4 0%, #F6FCF9 100%)',
-      iconBg: '#A8DBC8',
-      iconColor: '#0F5F4B',
-      description: job.routeSummary,
-    },
     {
       id: 'fit',
       label: 'Fit',
@@ -476,6 +474,26 @@ Do not add any certifications, degrees, or specific software knowledge unless it
               : '#495045',
       description: fitSummary,
     },
+    {
+      id: 'hours',
+      label: 'Hours',
+      value: simplifiedHoursValue,
+      icon: Clock,
+      background: 'linear-gradient(135deg, #EEF6FF 0%, #F7FBFF 100%)',
+      iconBg: '#BEDBFF',
+      iconColor: '#0B4A7A',
+      description: analysis.hoursRealityCheck,
+    },
+    {
+      id: 'transit',
+      label: 'Transit',
+      value: `${job.transitTimeMins} min`,
+      icon: Bus,
+      background: 'linear-gradient(135deg, #ECF8F4 0%, #F6FCF9 100%)',
+      iconBg: '#A8DBC8',
+      iconColor: '#0F5F4B',
+      description: job.routeSummary,
+    },
   ] as const;
 
   const sectionSurfaceStyle = {
@@ -483,6 +501,28 @@ Do not add any certifications, degrees, or specific software knowledge unless it
     boxShadow: 'none',
     backgroundColor: 'var(--mantine-color-surface-1)',
     borderRadius: 'var(--app-radius-lg)',
+  } as const;
+  const inlineLinkChipStyles = {
+    root: {
+      paddingInline: 6,
+      minHeight: 'auto',
+      borderRadius: 999,
+      transition: 'padding-inline 140ms ease, background-color 140ms ease',
+      '&:hover': {
+        paddingInline: 12,
+        backgroundColor: 'var(--mantine-color-gray-1)',
+      },
+    },
+    section: {
+      marginInlineEnd: 6,
+    },
+    label: {
+      fontSize: '0.875rem',
+      fontWeight: 400,
+      letterSpacing: '-0.01em',
+      lineHeight: 1.15,
+      color: 'var(--mantine-color-ink-6)',
+    },
   } as const;
 
   return (
@@ -514,7 +554,8 @@ Do not add any certifications, degrees, or specific software knowledge unless it
             component="header"
             bg="surface.0"
             px={{ base: 'md', xl: 'lg' }}
-            py={{ base: 'sm', xl: 'md' }}
+            pt={0}
+            pb={{ base: 'sm', xl: 'md' }}
             style={{
               position: 'sticky',
               top: 0,
@@ -530,12 +571,17 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                     </ActionIcon>
                   </Tooltip>
                 ) : null}
-                <Text size="sm" fw={600} c="ink.6">
-                  Job Detail
-                </Text>
+                <SignalBadge
+                  label={recommendation.tier}
+                  tone={recommendation.tone}
+                  leftSection={recommendationIcon}
+                  size="md"
+                  prominent
+                  bookmark
+                />
               </Group>
 
-              <Group gap="xs" wrap="nowrap">
+              <Group gap="xs" wrap="nowrap" mt={8}>
                 <Tooltip label="Share job" withArrow openDelay={200}>
                   <ActionIcon
                     variant="subtle"
@@ -589,22 +635,12 @@ Do not add any certifications, degrees, or specific software knowledge unless it
           <Box
             component="main"
             px={{ base: 'md', xl: 'lg' }}
-            pt={{ base: 'md', xl: 'lg' }}
-            pb={{ base: 'xl', xl: 40 }}
+            pt={{ base: 'md', xl: 'md' }}
+            pb={{ base: 'xl', xl: 28 }}
             style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
           >
-            <Stack gap="lg">
+            <Stack gap={{ base: 'lg', xl: 'md' }}>
               <Box style={{ minWidth: 0 }}>
-                  <Box mt={{ base: -16, xl: -24 }} mb="sm">
-                    <SignalBadge
-                      label={recommendation.tier}
-                      tone={recommendation.tone}
-                      leftSection={recommendationIcon}
-                      size="md"
-                      prominent
-                      bookmark
-                    />
-                  </Box>
                   {hasProminentPay ? (
                   <Text
                     size="sm"
@@ -620,15 +656,15 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                     order={1}
                     size="h1"
                     c="ink.9"
-                    mb={6}
+                    mb={4}
                     style={{ lineHeight: 1.06, letterSpacing: '-0.05em', fontSize: 'clamp(1.95rem, 3.9vw, 2.6rem)' }}
                   >
                     {job.title}
                   </Title>
-                  <Text size="lg" fw={700} c="ink.8" mb={6} style={{ letterSpacing: '-0.02em' }}>
+                  <Text size="lg" fw={700} c="ink.8" mb={4} style={{ letterSpacing: '-0.02em' }}>
                     {job.employer}
                   </Text>
-                  <Group gap={8} mb={14} wrap="wrap">
+                  <Group gap={8} mb={{ base: 14, xl: 10 }} wrap="wrap">
                     <Text size="sm" c="ink.5">
                       {job.location}
                     </Text>
@@ -654,7 +690,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                     <Flex
                       direction={{ base: 'column', xs: 'row' }}
                       gap={{ base: 'xs', xs: 'sm' }}
-                      mt="md"
+                      mt={{ base: 'md', xl: 'sm' }}
                       align={{ base: 'stretch', xs: 'center' }}
                       wrap="wrap"
                     >
@@ -720,8 +756,8 @@ Do not add any certifications, degrees, or specific software knowledge unless it
 
               <SimpleGrid
                 cols={{ base: 1, sm: 3 }}
-                spacing={{ base: 'sm', sm: 'sm', lg: 'md' }}
-                verticalSpacing={{ base: 'sm', sm: 'sm', lg: 'md' }}
+                spacing={{ base: 'sm', sm: 'sm', lg: 'sm' }}
+                verticalSpacing={{ base: 'sm', sm: 'sm', lg: 'sm' }}
               >
                 {analysisCards.map((fact) => {
                   const Icon = fact.icon;
@@ -729,7 +765,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                   return (
                     <Box
                       key={fact.label}
-                      p={{ base: 'sm', sm: 14, lg: 'md' }}
+                      p={{ base: 'sm', sm: 14, lg: 14 }}
                       style={{
                         background: fact.background,
                         borderRadius: 'var(--app-radius-lg)',
@@ -743,7 +779,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                         align="center"
                         wrap="nowrap"
                         gap={{ base: 6, sm: 8 }}
-                        mb={{ base: 8, sm: 10, lg: 'sm' }}
+                        mb={{ base: 8, sm: 10, lg: 10 }}
                       >
                         <Group gap={{ base: 6, sm: 8 }} align="center" wrap="nowrap">
                           <ThemeIcon
@@ -774,25 +810,12 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                       <Text
                         fw={750}
                         c="ink.9"
-                        mb={{ base: 8, sm: 10, lg: 'sm' }}
+                        mb={{ base: 8, sm: 10, lg: 10 }}
                         fz="clamp(1.1rem, 1.7vw, 1.5rem)"
                         style={{ lineHeight: 1.12, letterSpacing: '-0.03em' }}
                       >
                         {fact.value}
                       </Text>
-                      {fact.id === 'hours' ? (
-                        <Text size="sm" c="ink.7" mb={{ base: 8, sm: 10, lg: 'sm' }} style={{ lineHeight: 1.45 }}>
-                          <Text component="span" fw={600} c="ink.8">
-                            Listed
-                          </Text>{' '}
-                          {compactListedHours}
-                          {' · '}
-                          <Text component="span" fw={600} c="ink.8">
-                            Reality
-                          </Text>{' '}
-                          {compactRealityHours}
-                        </Text>
-                      ) : null}
                       {fact.id !== 'fit' ? (
                         <Text
                           size="sm"
@@ -811,7 +834,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                           variant="default"
                           color="gray"
                           size="xs"
-                          mt={{ base: 'sm', sm: 10 }}
+                          mt={{ base: 'sm', sm: 10, lg: 8 }}
                           leftSection={renderExternalLogo(googleMapsLogoUrl, 14) || undefined}
                           styles={{
                             root: {
@@ -826,7 +849,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                       {fact.id === 'fit' && fitAssessment.requirements.length > 0 ? (
                         <Box
                           component="ul"
-                          mt={{ base: 'sm', sm: 10, lg: 'md' }}
+                          mt={{ base: 'sm', sm: 10, lg: 10 }}
                           style={{
                             listStyleType: 'none',
                             padding: 0,
@@ -875,7 +898,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
               </SimpleGrid>
 
               <Paper
-                p={{ base: 'sm', lg: 'md' }}
+                p={{ base: 'sm', lg: 12 }}
                 style={{
                   background: 'linear-gradient(135deg, #FBFCFD 0%, #FFFFFF 100%)',
                   border: '1px solid #E8EDF2',
@@ -883,7 +906,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                   borderRadius: 'var(--app-radius-lg)',
                 }}
               >
-                <Stack gap={{ base: 'md', sm: 'lg' }}>
+                <Stack gap={{ base: 'sm', sm: 12 }}>
                   <Text
                     size="xs"
                     fw={700}
@@ -894,10 +917,10 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                     Job Analysis
                   </Text>
 
-                  <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={{ base: 'md', sm: 'lg' }}>
-                    <Group gap={{ base: 'sm', sm: 'md' }} align="flex-start" wrap="nowrap">
+                  <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={{ base: 'sm', sm: 12 }}>
+                    <Group gap={{ base: 'xs', sm: 'sm' }} align="flex-start" wrap="nowrap">
                       <ThemeIcon
-                        size={{ base: 36, sm: 40, lg: 44 }}
+                        size={{ base: 32, sm: 36, lg: 38 }}
                         radius="lg"
                         styles={{
                           root: {
@@ -907,7 +930,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                           },
                         }}
                       >
-                        <Target size={18} strokeWidth={2} />
+                        <Target size={16} strokeWidth={2} />
                       </ThemeIcon>
                       <Box style={{ minWidth: 0 }}>
                         <Text
@@ -919,24 +942,24 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                                 ? 'red.7'
                                 : 'yellow.8'
                           }
-                          mb={{ base: 6, sm: 8 }}
-                          style={{ fontSize: 'clamp(1.1rem, 1.7vw, 1.5rem)', lineHeight: 1.12, letterSpacing: '-0.03em' }}
+                          mb={4}
+                          style={{ fontSize: 'clamp(1rem, 1.45vw, 1.3rem)', lineHeight: 1.12, letterSpacing: '-0.03em' }}
                         >
                           {analysis.hireChance} Hiring Chance
                         </Text>
                         <Text
                           size="sm"
                           c="ink.6"
-                          style={{ lineHeight: 1.55 }}
+                          style={{ lineHeight: 1.45 }}
                         >
                           {hiringSummary}
                         </Text>
                       </Box>
                     </Group>
 
-                    <Group gap={{ base: 'sm', sm: 'md' }} align="flex-start" wrap="nowrap">
+                    <Group gap={{ base: 'xs', sm: 'sm' }} align="flex-start" wrap="nowrap">
                       <ThemeIcon
-                        size={{ base: 36, sm: 40, lg: 44 }}
+                        size={{ base: 32, sm: 36, lg: 38 }}
                         radius="lg"
                         styles={{
                           root: {
@@ -946,7 +969,7 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                           },
                         }}
                       >
-                        <ShieldCheck size={18} strokeWidth={2} />
+                        <ShieldCheck size={16} strokeWidth={2} />
                       </ThemeIcon>
                       <Box style={{ minWidth: 0 }}>
                         <Text
@@ -958,15 +981,15 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                                 ? 'red.7'
                                 : 'yellow.8'
                           }
-                          mb={{ base: 6, sm: 8 }}
-                          style={{ fontSize: 'clamp(1.1rem, 1.7vw, 1.5rem)', lineHeight: 1.12, letterSpacing: '-0.03em' }}
+                          mb={4}
+                          style={{ fontSize: 'clamp(1rem, 1.45vw, 1.3rem)', lineHeight: 1.12, letterSpacing: '-0.03em' }}
                         >
                           {analysis.companyRisk} Employer Risk
                         </Text>
                         <Text
                           size="sm"
                           c="ink.6"
-                          style={{ lineHeight: 1.55 }}
+                          style={{ lineHeight: 1.45 }}
                         >
                           {employerRiskSummary}
                         </Text>
@@ -975,11 +998,9 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                   </SimpleGrid>
 
                   <Box
-                    px={{ base: 'sm', sm: 'md' }}
-                    py={{ base: 10, sm: 12 }}
+                    pt={{ base: 8, sm: 10 }}
                     style={{
-                      backgroundColor: 'var(--mantine-color-sage-0)',
-                      borderRadius: 'calc(var(--app-radius-lg) - 4px)',
+                      borderTop: '1px solid var(--mantine-color-sage-2)',
                     }}
                   >
                     <Flex
@@ -998,22 +1019,8 @@ Do not add any certifications, degrees, or specific software knowledge unless it
                           variant="subtle"
                           color="ink"
                           size="compact-sm"
-                          rightSection={<ExternalLink size={13} />}
-                          styles={{
-                            root: {
-                              paddingInline: 0,
-                              minHeight: 'auto',
-                            },
-                            section: {
-                              marginInlineStart: 6,
-                            },
-                            label: {
-                              fontSize: '0.875rem',
-                              fontWeight: 600,
-                              letterSpacing: '-0.01em',
-                              lineHeight: 1.2,
-                            },
-                          }}
+                          leftSection={renderExternalLogo(source.faviconUrl, 14) || undefined}
+                          styles={inlineLinkChipStyles}
                         >
                           {source.label}
                         </Button>
